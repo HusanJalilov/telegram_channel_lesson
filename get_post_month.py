@@ -1,3 +1,4 @@
+from operator import ge
 from read_data import fromJson
 
 
@@ -12,5 +13,19 @@ def get_post_month(data:dict,month:int)->int:
     Returns: 
         int: the number of posts for the given month
     """
+    count = 0
+    # Loop through the dictionary
+    messages= data['messages']
+    for i in messages:
+        if i['type']=='message':          
+            count+=int(i['date'][5:7])==month
+        
+  
     
-    return
+    return count
+file_path = "data/result.json"
+# Read the data
+data = fromJson(file_path)
+# Get the number of posts for the month of September
+count = get_post_month(data,9)
+print(get_post_month(data,10))
